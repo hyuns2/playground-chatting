@@ -11,7 +11,7 @@
 |--------------|------------------------------------------|
 | Language     | Java 17                                  |
 | Framework    | Spring Boot 3, Spring Cloud Gateway      |
-| Build · Test | Gradle 8, JUnit 5                        |
+| Build & Test | Gradle 8, JUnit 5                        |
 | Security     | Spring Security, JWT                     |
 | Persistence  | MySQL 9, Spring Data JPA                 |
 | Cache        | Redis 7, Spring Data Redis               |
@@ -40,7 +40,7 @@ playground-chatting/
 docker compose up -d
 ```
 
-### ⏹️  Stop
+### ⏹️ Stop
 
 ```bash
 docker compose down
