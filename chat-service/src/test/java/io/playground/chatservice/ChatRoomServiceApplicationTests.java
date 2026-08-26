@@ -1,0 +1,12 @@
+package io.playground.chatservice;
+
+import org.junit.jupiter.api.Test;
+
+//@SpringBootTest
+class ChatRoomServiceApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

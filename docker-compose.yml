@@ -1,0 +1,63 @@
+name: playground
+
+x-common-service: &common-service
+  restart: unless-stopped
+  networks:
+    - my-network
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+    interval: 10s
+    timeout: 5s
+    retries: 5
+  env_file:
+    - .env.local
+
+services:
+  gateway:
+    container_name: gateway
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    networks:
+    - my-network
+    depends_on:
+      auth-service:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
+      chat-service:
+        condition: service_healthy
+
+  auth-service:
+    <<: *common-service
+    container_name: auth-service
+    build: ./auth-service
+    ports:
+      - "8081:8080"
+
+  user-service:
+    <<: *common-service
+    container_name: user-service
+    build: ./user-service
+    ports:
+      - "8082:8080"
+  
+  chat-service:
+    <<: *common-service
+    container_name: chat-service
+    build:
+      context: ./chat-service
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    ports:
+      - "8083:8080"
+
+# ⚠️ Requirements
+
+# 1. Redis container must be running (name: redis)
+# 2. MySQL container must be running (name: mysql)
+# 3. Docker network `my-network` must exist
+networks:
+  my-network:
+    external: true
