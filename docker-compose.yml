@@ -1,4 +1,4 @@
-name: playground
+name: playground-chatting
 
 x-common-service: &common-service
   restart: unless-stopped
@@ -14,12 +14,11 @@ x-common-service: &common-service
 
 services:
   gateway:
+    <<: *common-service
     container_name: gateway
     build: ./gateway
     ports:
       - "8080:8080"
-    networks:
-    - my-network
     depends_on:
       auth-service:
         condition: service_healthy
@@ -45,18 +44,13 @@ services:
   chat-service:
     <<: *common-service
     container_name: chat-service
-    build:
-      context: ./chat-service
-      args:
-        GITHUB_USERNAME: ${GITHUB_USERNAME}
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
+    build: ./chat-service
     ports:
       - "8083:8080"
 
 # ⚠️ Requirements
-
-# 1. Redis container must be running (name: redis)
-# 2. MySQL container must be running (name: mysql)
+# 1. Redis container must be running
+# 2. MySQL container must be running
 # 3. Docker network `my-network` must exist
 networks:
   my-network:

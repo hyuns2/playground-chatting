@@ -20,10 +20,10 @@ public class SecurityAutoConfiguration {
     @ConditionalOnMissingBean
     @Primary
     public JwtAuthenticationProvider jwtAuthenticationProvider(
-            @Value("${jwt.secret_key}") String secretKey,
-            @Value("${jwt.grant_type}") String grantType,
-            @Value("${jwt.device_id_claim}") String deviceIdClaim,
-            @Value("${jwt.authorities_claim}") String authoritiesClaim
+            @Value("${auth.jwt.secret-key}") String secretKey,
+            @Value("${auth.jwt.grant-type}") String grantType,
+            @Value("${auth.jwt.device-id-claim}") String deviceIdClaim,
+            @Value("${auth.jwt.authorities-claim}") String authoritiesClaim
     ) {
         return new JwtAuthenticationProvider(secretKey, grantType, deviceIdClaim, authoritiesClaim);
     }
