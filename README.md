@@ -5,8 +5,6 @@
 
 `WebSocket` · `STOMP` · `Pub/Sub` · `Pagination`
 
----
-
 ## 🛠️ 기술 스택
 
 | 분류         | 사용                                     |
@@ -18,8 +16,6 @@
 | Persistence  | MySQL 9, Spring Data JPA                 |
 | Cache        | Redis 7, Spring Data Redis               |
 | Infra        | Docker · Docker Compose, Github Packages |
-
----
 
 ## 🏗️ 프로젝트 구조 및 설명
 
@@ -35,8 +31,6 @@ playground-chatting/
 ```
 
 * [기술적 의사결정 과정](https://hyuns2.notion.site/playground-chatting-30f2ac90a22f80ddb3b7ed889134f8c7)
-
----
 
 ## 🚀 실행 방법
 
