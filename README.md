@@ -27,7 +27,7 @@ playground-chatting/
 ├─ gateway/                 # 인증 담당
 ├─ security-core/           # 인가 담당
 ├─ docker-compose.yml
-└─ .local_env
+└─ .env
 ```
 
 * [기술적 의사결정 과정](https://hyuns2.notion.site/playground-chatting-30f2ac90a22f80ddb3b7ed889134f8c7)
