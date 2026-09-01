@@ -1,0 +1,75 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  threads:
+    virtual:
+      enabled: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${CHAT_DB}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_HIBERNATE_DDL_AUTO}
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        jdbc:
+          time_zone: UTC
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: ${SQL_INIT_MODE}
+      data-locations: classpath:data.sql
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: snappy
+      properties:
+        enable.idempotence: true
+        linger.ms: 10
+    consumer:
+      group-id: chat-service
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      properties:
+        isolation.level: read_committed
+        spring.json.trusted.packages: "io.playground.*"
+    listener:
+      ack-mode: record
+      type: single
+      concurrency: ${KAFKA_LISTENER_CONCURRENCY}
+
+logging:
+  level:
+    root: INFO
+    io.playground: ${LOGGING_LEVEL_PROJECT}
+
+    org.hibernate.SQL: ${LOGGING_LEVEL_HIBERNATE_SQL}
+    org.hibernate.orm.jdbc.bind: ${LOGGING_LEVEL_HIBERNATE_JDBC}
+
+    org.apache.kafka: ${LOGGING_LEVEL_KAFKA}
+    org.springframework.kafka: ${LOGGING_LEVEL_SPRING_KAFKA}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

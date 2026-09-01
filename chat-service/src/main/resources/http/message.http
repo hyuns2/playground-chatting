@@ -1,0 +1,7 @@
+### 메시지 전송
+GET http://localhost:8080/chatting.html
+
+### 메시지 조회
+POST http://localhost:8080/room/1/messages/cursor?size=10
+Content-Type: application/json
+Authorization: Bearer your_accessToken_here

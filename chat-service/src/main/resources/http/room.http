@@ -1,0 +1,13 @@
+### 채팅방 생성
+POST http://localhost:8080/room
+Content-Type: application/json
+Authorization: Bearer your_accessToken_here
+
+{
+  "type": "PRIVATE",
+  "participantIds": [1, 2, 3]
+}
+
+### 채팅방 조회
+GET http://localhost:8080/rooms?page=0&size=10
+Authorization: Bearer your_accessToken_here

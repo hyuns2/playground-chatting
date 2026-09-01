@@ -1,0 +1,31 @@
+name: playground-chatting
+
+x-common-service: &common-service
+  restart: unless-stopped
+  networks:
+    - playground-network
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+    interval: 10s
+    timeout: 5s
+    retries: 5
+  environment:
+    TZ: Asia/Seoul
+  env_file:
+    - .env
+
+services:
+  chat-service:
+    <<: *common-service
+    container_name: chat-service
+    build: ./chat-service
+    ports:
+      - "8081:8080"
+
+# ⚠️ Requirements
+# 1. MySQL container must be running
+# 2. Redis container must be running
+# 3. Docker network `playground-network` must exist
+networks:
+  playground-network:
+    external: true
