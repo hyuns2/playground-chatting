@@ -16,7 +16,7 @@
 | Build       | Gradle 9 · Kotlin DSL                |
 | Security    | security-core (Spring Security, JWT) |
 | Persistence | MySQL 9, Spring Data JPA             |
-| Pub/Sub     | Redis 7, Spring Data Redis           |
+| Pub/Sub     | Redis 8, Spring Data Redis           |
 | Messaging   | Kafka 4, Spring Kafka                |
 | Infra       | Docker · Docker Compose              |
 
