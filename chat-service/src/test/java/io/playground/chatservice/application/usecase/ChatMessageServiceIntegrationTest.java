@@ -17,6 +17,7 @@ import io.playground.chatservice.infrastructure.jpa.repository.ChatParticipantRe
 import io.playground.chatservice.infrastructure.jpa.repository.ChatRoomRepository;
 import io.playground.chatservice.presentation.ChatRequestDto;
 import io.playground.chatservice.presentation.ChatResponseDto;
+import io.playground.chatservice.testsupport.DataJpaTestConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
@@ -39,6 +41,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * EventProducerPort는 outbox(JPA) 구현체 대신 목으로 대체해 슬라이스 범위를 벗어나지 않게 한다.
  */
 @DataJpaTest
+@ContextConfiguration(classes = DataJpaTestConfig.class)
 @TestPropertySource(properties = {
         "spring.profiles.active=test",
         "spring.sql.init.mode=never"

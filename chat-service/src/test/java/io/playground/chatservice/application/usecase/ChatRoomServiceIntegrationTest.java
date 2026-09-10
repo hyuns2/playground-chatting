@@ -12,6 +12,7 @@ import io.playground.chatservice.infrastructure.jpa.repository.ChatRoomRepositor
 import io.playground.chatservice.infrastructure.jpa.repository.UserViewRepository;
 import io.playground.chatservice.presentation.ChatRequestDto;
 import io.playground.chatservice.presentation.ChatResponseDto;
+import io.playground.chatservice.testsupport.DataJpaTestConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import tools.jackson.databind.ObjectMapper;
 
@@ -34,6 +36,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * ChatRoomService를 실제 JPA 어댑터, H2 인메모리 DB와 함께 구동하는 통합 테스트.
  */
 @DataJpaTest
+@ContextConfiguration(classes = DataJpaTestConfig.class)
 @TestPropertySource(properties = {
         "spring.profiles.active=test",
         "spring.sql.init.mode=never"
