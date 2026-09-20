@@ -2,6 +2,7 @@ package io.playground.chatservice.infrastructure.scheduling;
 
 import io.playground.chatservice.infrastructure.outbox.OutboxService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 @RequiredArgsConstructor
+@Profile("!test")
 public class OutboxPoller {
     private final OutboxService outboxService;
 

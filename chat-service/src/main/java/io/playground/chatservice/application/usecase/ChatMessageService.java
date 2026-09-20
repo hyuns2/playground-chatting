@@ -66,9 +66,10 @@ public class ChatMessageService {
         );
 
         eventProducerPort.produce(
-                UUID.randomUUID().toString(),
                 ChatEventDto.EventType.CHAT_MESSAGE_SENT,
                 Instant.now(),
+                UUID.randomUUID().toString(),
+                Long.toString(chatRoomId),
                 ChatEventDto.ChatMessageSent.from(chatMessage)
         );
         return chatMessage.getId();

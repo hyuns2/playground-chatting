@@ -13,7 +13,10 @@ import java.time.Instant;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "chat_rooms")
+@Table(name = "chat_rooms", indexes = {
+    @Index(name = "idx_chatRoomId_createdAt", columnList = "chat_room_id, created_at"),
+    @Index(name = "idx_createdAt_id", columnList = "created_at, id")
+})
 public class ChatRoomEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

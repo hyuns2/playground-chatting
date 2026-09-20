@@ -2,7 +2,10 @@ package io.playground.chatservice.infrastructure.outbox;
 
 import io.playground.chatservice.application.event.ChatEventDto;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
@@ -10,7 +13,6 @@ import java.time.Instant;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Table(
         name = "outboxes",
         indexes = {
@@ -47,4 +49,23 @@ public class OutboxEntity {
     // ToDo: 운영에서는 retryCount와 lockedUntil도 같이 관리하거나, CDC 방식으로 변환 필요
     @Column(nullable = false)
     private boolean processed;
+
+    public static OutboxEntity of(String eventId,
+                                  ChatEventDto.EventType eventType,
+                                  Instant occurredAt,
+                                  String traceId,
+                                  String partitionKey,
+                                  String payload,
+                                  boolean processed) {
+        return new OutboxEntity(
+                null,
+                eventId,
+                eventType,
+                occurredAt,
+                traceId,
+                partitionKey,
+                payload,
+                processed
+        );
+    }
 }

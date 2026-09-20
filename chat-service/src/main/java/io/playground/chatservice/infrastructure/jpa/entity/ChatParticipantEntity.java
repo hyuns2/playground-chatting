@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "chat_participants")
+@Table(name = "chat_participants", indexes = {
+    @Index(name = "idx_participantId_chatRoomId", columnList = "participant_id, chat_room_id")
+})
 public class ChatParticipantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

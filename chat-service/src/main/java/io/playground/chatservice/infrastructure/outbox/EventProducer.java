@@ -16,21 +16,21 @@ public class EventProducer implements EventProducerPort {
     private final ObjectMapper objectMapper;
 
     @Override
-    public <T> void produce(String traceId,
-                            ChatEventDto.EventType eventType,
+    public <T> void produce(ChatEventDto.EventType eventType,
                             Instant occurredAt,
+                            String traceId,
+                            String partitionKey,
                             T payload) {
         outboxRepository.save(
-                OutboxEntity.builder()
-                        .eventId(UUID.randomUUID().toString())
-                        .eventType(eventType)
-                        .occurredAt(occurredAt)
-                        .traceId(traceId)
-                        .payload(
-                                objectMapper.writeValueAsString(payload)
-                        )
-                        .processed(false)
-                        .build()
+                OutboxEntity.of(
+                        UUID.randomUUID().toString(),
+                        eventType,
+                        occurredAt,
+                        traceId,
+                        partitionKey,
+                        objectMapper.writeValueAsString(payload),
+                        false
+                    )
         );
     }
 }

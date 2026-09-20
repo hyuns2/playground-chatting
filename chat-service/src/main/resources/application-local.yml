@@ -3,9 +3,8 @@ spring:
     activate:
       on-profile: local
 
-  threads:
-    virtual:
-      enabled: true
+  scheduling:
+    enable: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,13 +15,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${JPA_HIBERNATE_DDL_AUTO}
-    properties:
-      hibernate:
-        format_sql: true
-        highlight_sql: true
-        jdbc:
-          time_zone: UTC
-    defer-datasource-initialization: true
 
   sql:
     init:
@@ -36,22 +28,8 @@ spring:
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      compression-type: snappy
-      properties:
-        enable.idempotence: true
-        linger.ms: 10
     consumer:
-      group-id: chat-service
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      enable-auto-commit: false
       auto-offset-reset: latest
-      properties:
-        isolation.level: read_committed
-        spring.json.trusted.packages: "io.playground.*"
     listener:
       ack-mode: record
       type: single
