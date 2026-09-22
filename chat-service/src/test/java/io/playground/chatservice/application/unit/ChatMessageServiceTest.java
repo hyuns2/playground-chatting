@@ -1,4 +1,4 @@
-package io.playground.chatservice.application;
+package io.playground.chatservice.application.unit;
 
 import io.playground.chatservice.application.dto.ChatQueryDto;
 import io.playground.chatservice.application.event.ChatEventDto;
@@ -100,9 +100,10 @@ class ChatMessageServiceTest {
       ArgumentCaptor<ChatEventDto.ChatMessageSent> payloadCaptor = ArgumentCaptor.forClass(ChatEventDto.ChatMessageSent.class);
       verify(eventProducerPort)
           .produce(
-              anyString(),
               eq(ChatEventDto.EventType.CHAT_MESSAGE_SENT),
               any(Instant.class),
+              anyString(),
+              eq(Long.toString(CHAT_ROOM_ID)),
               payloadCaptor.capture()
           );
       assertThat(
@@ -218,7 +219,7 @@ class ChatMessageServiceTest {
   class GetChatMessagesInfo {
     @Test
     @DisplayName("""
-        1. 아직 안 읽은 메시지가 있으면
+        4. 아직 안 읽은 메시지가 있으면
           - 최신 메시지 id로 마지막으로 읽은 메시지가 갱신된다.
     """)
     void updatesLastReadMessageWhenNewMessageExists() {
@@ -271,7 +272,7 @@ class ChatMessageServiceTest {
 
     @Test
     @DisplayName("""
-        2. 조회 요청자가 채팅방 참여자가 아니면
+        5. 조회 요청자가 채팅방 참여자가 아니면
           - 예외가 발생한다.
     """)
     void throwsWhenRequesterIsNotParticipant() {
@@ -298,7 +299,7 @@ class ChatMessageServiceTest {
 
     @Test
     @DisplayName("""
-        3. 조회된 메시지가 없으면
+        6. 조회된 메시지가 없으면
           - 다음 커서는 null이고,
           - 마지막으로 읽은 메시지는 갱신되지 않는다.
     """)
@@ -331,7 +332,7 @@ class ChatMessageServiceTest {
 
     @Test
     @DisplayName("""
-        4. 이미 최신 메시지까지 읽은 상태라면
+        7. 이미 최신 메시지까지 읽은 상태라면
           - 마지막으로 읽은 메시지가 갱신되지 않는다.
     """)
     void doesNotUpdateLastReadWhenAlreadyUpToDate() {
@@ -363,7 +364,7 @@ class ChatMessageServiceTest {
 
     @Test
     @DisplayName("""
-        5. 커서가 null이면
+        8. 커서가 null이면
           - id와 createdAt이 null인 커서로 조회한다
     """)
     void queriesWithEmptyCursorWhenDtoIsNull() {

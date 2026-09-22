@@ -31,7 +31,7 @@ repositories {
 
 dependencies {
     // web
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -45,18 +45,17 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-kafka")
 
-    // serialization
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-
     // dev-tools
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")    // serialization
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testCompileOnly("org.projectlombok:lombok")
     testAnnotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.springframework.kafka:spring-kafka-test")
 
     // testcontainers
     testImplementation("org.springframework.boot:spring-boot-testcontainers")

@@ -1,4 +1,4 @@
-package io.playground.chatservice.application;
+package io.playground.chatservice.application.unit;
 
 import io.playground.chatservice.application.port.ChatParticipantPersistencePort;
 import io.playground.chatservice.application.port.ChatRoomPersistencePort;
@@ -181,11 +181,11 @@ class ChatRoomServiceTest {
   }
 
   @Nested
-  @DisplayName("[채팅방 목록용 정보 조회]")
+  @DisplayName("[채팅방 조회]")
   class GetChatRoomInfos {
     @Test
     @DisplayName("""
-        1. 채팅방별 참여자 목록을 묶어서 반환한다.
+        3. 채팅방별 참여자 목록을 묶어서 반환한다.
     """)
     void groupsParticipantsByChatRoom() {
       // given
@@ -247,7 +247,7 @@ class ChatRoomServiceTest {
   class ValidateChatParticipant {
     @Test
     @DisplayName("""
-        1-1. 정상 참여자이면
+        4-1. 정상 참여자이면
           - 예외가 발생하지 않는다.
     """)
     void doesNotThrowWhenParticipant() {
@@ -262,7 +262,7 @@ class ChatRoomServiceTest {
 
     @Test
     @DisplayName("""
-        1-2. 참여자가 아니면
+        4-2. 참여자가 아니면
           - 예외가 발생한다.
     """)
     void throwsWhenNotParticipant() {

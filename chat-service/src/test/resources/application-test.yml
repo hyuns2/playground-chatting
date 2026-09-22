@@ -1,4 +1,43 @@
 spring:
-  task:
-    scheduling:
-      enabled: false
+  config:
+    activate:
+      on-profile: test
+
+  scheduling:
+    enable: false
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  sql:
+    init:
+      mode: never
+
+  kafka:
+    bootstrap-servers: localhost:19094
+    consumer:
+      auto-offset-reset: earliest
+    listener:
+      ack-mode: record
+      type: single
+      concurrency: 1
+
+logging:
+  level:
+    root: INFO
+#    io.playground: ${LOGGING_LEVEL_PROJECT}
+#
+#    org.hibernate.SQL: ${LOGGING_LEVEL_HIBERNATE_SQL}
+#    org.hibernate.orm.jdbc.bind: ${LOGGING_LEVEL_HIBERNATE_JDBC}
+#
+#    org.apache.kafka: ${LOGGING_LEVEL_KAFKA}
+#    org.springframework.kafka: ${LOGGING_LEVEL_SPRING_KAFKA}
+
+auth:
+  mode: jwt-token
+  jwt:
+    secret-key: ehdgoanfrhk123qorentksdl098akfmrhekfgehfhr456gksmsladlqhdngktk78
+    grant-type: Bearer
+  allowed-statuses: ACTIVE
+  excluded-patterns: /error, /stomp

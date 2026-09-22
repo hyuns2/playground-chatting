@@ -4,7 +4,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.kafka.KafkaContainer;
+import org.testcontainers.kafka.ConfluentKafkaContainer;
 import org.testcontainers.mysql.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
@@ -13,7 +13,10 @@ public class TestcontainersConfig {
   @Bean
   @ServiceConnection(name = "mysql")
   MySQLContainer mysqlContainer() {
-    return new MySQLContainer("mysql:9.4.0");
+    return new MySQLContainer("mysql:9.4.0")
+        .withDatabaseName("test")
+        .withUsername("test")
+        .withPassword("test");
   }
 
   @Bean
@@ -29,11 +32,7 @@ public class TestcontainersConfig {
 
   @Bean
   @ServiceConnection(name = "kafka")
-  KafkaContainer kafkaContainer() {
-    return new KafkaContainer(
-        DockerImageName
-            .parse("confluentinc/cp-kafka:8.0.1")
-            .asCompatibleSubstituteFor("apache/kafka")
-    );
+  ConfluentKafkaContainer kafkaContainer() {
+    return new ConfluentKafkaContainer("confluentinc/cp-kafka:8.0.1");
   }
 }
